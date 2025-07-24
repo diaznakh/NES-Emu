@@ -284,7 +284,6 @@ class CPU6502 {
 
   public:
     void executor();
-
 };
 
 
