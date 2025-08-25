@@ -1,23 +1,22 @@
 # NES Emulator
 
-A Nintendo Entertainment System (NES) emulator built with modern C++ and featuring both SDL2 and OneLoneCoder's PixelGameEngine implementations.
+A Nintendo Entertainment System (NES) emulator built with modern C++ and SDL2 for cross-platform compatibility.
 
 ## 🎮 Features
 
-- **Complete NES Emulation**: CPU, PPU, APU, and memory management
-- **OneLoneCoder's PPU Implementation**: Accurate background and sprite rendering
-- **Multiple Graphics Backends**: SDL2 (cross-platform) and OneLoneCoder's PixelGameEngine
-- **Advanced Debugging**: Real-time CPU status, audio visualization, palette viewer
+- **Complete NES Emulation**: CPU, PPU, and memory management
+- **SDL2 Graphics Backend**: Cross-platform graphics rendering
 - **iNES Format Support**: Load and play NES ROM files
 - **Multiple Mapper Support**: Mappers 000, 001, 002, 003, 004, 066
-- **Frame-by-Frame Stepping**: For debugging and development
+- **Clean Architecture**: Modular design with separate CPU, PPU, and Cartridge components
 
 ## 🏗️ Architecture
 
-This emulator combines the best of both worlds:
-- **Our NES Components**: CPU6502, PPU2C02, Cartridge with OneLoneCoder's PPU approach
-- **OneLoneCoder's PixelGameEngine**: For advanced graphics and debugging interface
-- **SDL2 Backend**: For cross-platform compatibility
+This emulator uses a clean, modular architecture:
+- **CPU6502**: 6502 processor emulation
+- **PPU2C02**: Picture Processing Unit with OneLoneCoder's rendering approach
+- **Cartridge**: ROM loading and mapper support
+- **SDL2**: Cross-platform graphics and input handling
 
 ## 📋 Prerequisites
 
@@ -30,46 +29,32 @@ This emulator combines the best of both worlds:
 
 # Install required libraries
 brew install sdl2
-brew install libpng
-brew install freeglut
 ```
 
 #### Ubuntu/Debian
 ```bash
 sudo apt-get update
-sudo apt-get install libsdl2-dev libpng-dev freeglut3-dev
+sudo apt-get install libsdl2-dev
 ```
 
 #### Fedora
 ```bash
-sudo dnf install SDL2-devel libpng-devel freeglut-devel
+sudo dnf install SDL2-devel
 ```
 
 #### Windows
 - Install [SDL2](https://www.libsdl.org/download-2.0.php)
-- Install [libpng](http://www.libpng.org/pub/png/libpng.html)
-- Install [freeglut](http://freeglut.sourceforge.net/)
 
 ## 🚀 Building
 
-### SDL2 Version (Recommended for macOS)
+### Build the SDL2 Version
 ```bash
-# Build the SDL2 version
+# Build the emulator
 make clean
 make
 
 # Run with a ROM file
 ./nes-emu "path/to/your/game.nes"
-```
-
-### OneLoneCoder PixelGameEngine Version
-```bash
-# Build the OneLoneCoder version
-make clean
-make nes-emu-olc
-
-# Run the OneLoneCoder version
-./nes-emu-olc
 ```
 
 ## 🎮 Controls
@@ -84,11 +69,6 @@ make nes-emu-olc
 - **P**: Cycle through palettes
 - **Space**: Pause/Resume emulation
 
-### Debug Controls (OneLoneCoder version)
-- **C**: Step by step execution
-- **F**: Step one frame
-- **Space**: Toggle continuous emulation
-
 ## 📁 Project Structure
 
 ```
@@ -97,10 +77,8 @@ NES-Emu/
 ├── ppu.h              # PPU with OneLoneCoder's approach
 ├── cartridge.h        # Cartridge and mapper support
 ├── main.cpp           # SDL2 version main file
-├── main_olc.cpp       # OneLoneCoder version main file
 ├── Makefile           # Build configuration
-├── olcPixelGameEngine.h  # OneLoneCoder's graphics engine
-├── olcPGEX_Sound.h    # OneLoneCoder's audio extension
+├── olcPixelGameEngine.h  # OneLoneCoder's graphics engine (reference)
 └── *.nes              # NES ROM files
 ```
 
@@ -140,14 +118,13 @@ The PPU uses OneLoneCoder's exact approach for:
 ## 🐛 Known Issues
 
 ### macOS
-- **OneLoneCoder Version**: GLUT window creation may fail on modern macOS due to GLUT compatibility issues
 - **SDL2 Version**: Works perfectly on all macOS versions
 
 ### Windows
-- Both versions should work correctly
+- Should work correctly with SDL2
 
 ### Linux
-- Both versions should work correctly
+- Works correctly on Ubuntu, Debian, and Fedora
 
 ## 🤝 Contributing
 
@@ -172,8 +149,7 @@ This project is heavily inspired by and uses code from OneLoneCoder's NES emulat
 
 **Key Contributions Used:**
 - PPU rendering approach and timing
-- PixelGameEngine graphics framework
-- Audio system implementation
+- Graphics engine concepts
 - Debug interface design
 
 ### License (OLC-3)
@@ -211,15 +187,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ### Other Libraries
 - **SDL2**: Simple DirectMedia Layer for cross-platform graphics
-- **libpng**: PNG image format support
-- **freeglut**: OpenGL Utility Toolkit
 
 ## 📞 Support
 
 If you encounter any issues:
 1. Check the known issues section
 2. Ensure all dependencies are installed
-3. Try both SDL2 and OneLoneCoder versions
+3. Try the SDL2 version
 4. Open an issue on GitHub with detailed information
 
 ## 🎯 Roadmap
