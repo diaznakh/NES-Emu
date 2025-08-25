@@ -1,8 +1,18 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -O2 $(shell pkg-config --cflags sdl2)
-CXXFLAGS_OLC = -std=c++17 -Wall -Wextra -O2 -I. -I/opt/homebrew/include
 LDFLAGS = $(shell pkg-config --libs sdl2)
-LDFLAGS_OLC = -framework OpenGL -framework Cocoa -framework IOKit -framework CoreAudio -framework AudioToolbox -L/opt/homebrew/lib -lpng -lglut
+
+# Platform detection for OneLoneCoder version
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+    # macOS
+    CXXFLAGS_OLC = -std=c++17 -Wall -Wextra -O2 -I. -I/opt/homebrew/include
+    LDFLAGS_OLC = -framework OpenGL -framework Cocoa -framework IOKit -framework CoreAudio -framework AudioToolbox -L/opt/homebrew/lib -lpng -lglut
+else
+    # Linux and other platforms
+    CXXFLAGS_OLC = -std=c++17 -Wall -Wextra -O2 -I.
+    LDFLAGS_OLC = -lGL -lGLU -lglut -lpng -lX11 -lpthread -lXrandr -lXinerama -lXcursor -ldl -lrt
+endif
 
 # SDL2 Version
 TARGET = nes-emu
@@ -51,11 +61,11 @@ install-olc-mac:
 # Install OneLoneCoder dependencies (Ubuntu/Debian)
 install-olc-ubuntu:
 	sudo apt-get update
-	sudo apt-get install libpng-dev freeglut3-dev
+	sudo apt-get install libpng-dev freeglut3-dev libgl1-mesa-dev libglu1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev
 
 # Install OneLoneCoder dependencies (Fedora)
 install-olc-fedora:
-	sudo dnf install libpng-devel freeglut-devel
+	sudo dnf install libpng-devel freeglut-devel mesa-libGL-devel mesa-libGLU-devel libXrandr-devel libXinerama-devel libXcursor-devel
 
 # Run with a ROM file (example)
 run: $(TARGET)
