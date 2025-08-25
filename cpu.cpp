@@ -6,7 +6,7 @@ void CPU6502::reset() {
     X = 0x00;
     Y = 0x00;
     SP = 0xFD;
-    STATUS = 0x00 | U;
+    STATUS = 0x24; // Set U and I flags
     PC = 0xFFFC; // Reset vector location
     cycles = 8;
 }
@@ -27,7 +27,6 @@ int CPU6502::executor() {
     // Basic instruction execution
     if (cycles == 0) {
         // Fetch next instruction
-        uint8_t opcode = 0x00; // Placeholder
         cycles = 1; // Basic cycle count
     }
     
